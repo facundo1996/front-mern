@@ -33,10 +33,10 @@ export default function TaskForm() {
         enableReinitialize={true}
         onSubmit={async (values, actions) => {
           if(params.id){
-            updateTask(params.id, values)
+            await updateTask(params.id, values)
             navigate('/')
           }else {
-            createTask(values)
+            await createTask(values)
           }
           actions.resetForm()
         }}

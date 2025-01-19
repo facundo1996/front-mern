@@ -48,9 +48,13 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
-  const updateTask = async (id, task) => {
+  const updateTask = async (id, taskDone) => {
     try {
-      await updateTaskRequest(id, task)
+      await updateTaskRequest(id, taskDone)
+      if(taskDone.done === 0 || taskDone.done === 1){
+        console.log(taskDone)
+        setTasks(tasks.map( (task) => (task.id === id ?{...task, done: taskDone.done} :task) ))
+      }
     } catch (error) {
       console.log(error)
     }
