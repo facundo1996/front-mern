@@ -12,9 +12,9 @@ export default function TaskForm() {
   })
   const params = useParams()
 
-  useEffect(() => {    
-    const loadTask = async () =>{
-      if(params.id) {
+  useEffect(() => {
+    const loadTask = async () => {
+      if (params.id) {
         const taskResponse = await getTask(params.id)
         setTask({
           title: taskResponse.title,
@@ -27,15 +27,15 @@ export default function TaskForm() {
 
   return (
     <div>
-      <h1>{ params.id ?'Edit Task' :'Create Task'}</h1>
+      <h1>{params.id ? 'Edit Task' : 'Create Task'}</h1>
       <Formik
         initialValues={task}
         enableReinitialize={true}
         onSubmit={async (values, actions) => {
-          if(params.id){
+          if (params.id) {
             await updateTask(params.id, values)
             navigate('/')
-          }else {
+          } else {
             await createTask(values)
           }
           actions.resetForm()
@@ -44,9 +44,23 @@ export default function TaskForm() {
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <label>Title</label>
-            <input type="text" name="title" onChange={handleChange} value={values.title} />
+            <input
+              type="text"
+              name="title"
+              onChange={handleChange}
+              value={values.title}
+            />
+
             <label>Description</label>
-            <input type="textarea" name="description" rows="3" placeholder='Write a description' onChange={handleChange} value={values.description} />
+            <input
+              type="textarea"
+              name="description"
+              rows="3"
+              placeholder='Write a description'
+              onChange={handleChange}
+              value={values.description}
+            />
+            
             <button type='submit' disabled={isSubmitting}>
               {isSubmitting ? 'Saving..' : 'Save'}
             </button>
