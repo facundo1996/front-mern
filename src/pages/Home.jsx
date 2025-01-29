@@ -1,6 +1,11 @@
+import { Container, Typography } from '@mui/material';
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <Container sx={{ mt: 4 }}>
+      <Typography variant="h4" align="center">
+        Home Page
+      </Typography>
+    </Container>
   )
 }

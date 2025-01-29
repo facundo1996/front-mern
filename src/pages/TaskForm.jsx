@@ -2,71 +2,88 @@ import { Form, Formik } from 'formik';
 import { useTasks } from "../context/TaskContext.jsx";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { TextField, Button, Container, Typography } from '@mui/material';
 
 export default function TaskForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { createTask, getTask, updateTask } = useTasks();
   const [task, setTask] = useState({
     title: "",
     description: ""
-  })
-  const params = useParams()
+  });
+  const params = useParams();
 
   useEffect(() => {
     const loadTask = async () => {
       if (params.id) {
-        const taskResponse = await getTask(params.id)
+        const taskResponse = await getTask(params.id);
         setTask({
           title: taskResponse.title,
           description: taskResponse.description
-        })
+        });
       }
-    }
-    loadTask()
-  }, []);
+    };
+    loadTask();
+  }, [params.id]);
 
   return (
-    <div>
-      <h1>{params.id ? 'Edit Task' : 'Create Task'}</h1>
+    <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        {params.id ? 'Edit Task' : 'Create Task'}
+      </Typography>
+
       <Formik
         initialValues={task}
         enableReinitialize={true}
         onSubmit={async (values, actions) => {
           if (params.id) {
-            await updateTask(params.id, values)
-            navigate('/')
+            await updateTask(params.id, values);
+            navigate('/');
           } else {
-            await createTask(values)
+            await createTask(values);
           }
-          actions.resetForm()
+          actions.resetForm();
         }}
       >
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
-            <label>Title</label>
-            <input
-              type="text"
+            <TextField
+              fullWidth
+              label="Title"
+              variant="outlined"
               name="title"
-              onChange={handleChange}
               value={values.title}
+              onChange={handleChange}
+              sx={{ mb: 2 }}
             />
 
-            <label>Description</label>
-            <input
-              type="textarea"
+            <TextField
+              fullWidth
+              label="Description"
+              variant="outlined"
               name="description"
-              rows="3"
-              placeholder='Write a description'
-              onChange={handleChange}
               value={values.description}
+              onChange={handleChange}
+              multiline
+              rows={3}
+              placeholder="Write a description"
+              sx={{ mb: 2 }}
             />
-            
-            <button type='submit' disabled={isSubmitting}>
-              {isSubmitting ? 'Saving..' : 'Save'}
-            </button>
+
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              type="submit"
+              disabled={isSubmitting}
+              sx={{ mt: 2 }}
+            >
+              {isSubmitting ? 'Saving...' : 'Save'}
+            </Button>
           </Form>
         )}
       </Formik>
-    </div>
-  )
+    </Container>
+  );
 }
+
