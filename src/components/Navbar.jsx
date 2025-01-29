@@ -1,37 +1,36 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useUser } from "../context/UserContext.jsx";
-
+import { AppBar, Divider, Typography } from "@mui/material";
 export default function Navbar() {
 
   const { logoutUser } = useUser();
-  const navigate = useNavigate();
+  
 
   function logout() {
     logoutUser();
-    navigate("/login");
+    
     window.location.reload();
   }
 
   return (
-    <div>
-      <h1>MERN MYSQL</h1>
-      <ul>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
-        <li>
-          <button onClick={() => logout()}>Logout</button>
-        </li>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/new">Create Task</Link>
-        </li>
-      </ul>
-    </div>
+    <AppBar position="relative" sx={{display: "flex", flexDirection:"row", justifyContent:"space-around"}}>
+      {/* <h1>MERN MYSQL</h1> */}
+      <Typography to="/login" variant="h6" component={Link} >
+        Login
+      </Typography>
+      <Typography to="/register" variant="h6" component={Link}>
+        Register
+      </Typography>
+      <Typography to="/logout" variant="h6" component={Link} onClick={logout}>
+        Logout
+      </Typography>
+      <Typography to="/" variant="h6" component={Link}>
+        Home
+      </Typography>
+      <Typography to="/new" variant="h6" component={Link}>
+        Create Task
+      </Typography>
+
+    </AppBar >
   )
 }
