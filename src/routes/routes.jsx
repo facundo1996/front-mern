@@ -5,6 +5,8 @@ import Register from '../pages/Register.jsx';
 import Login from '../pages/Login.jsx';
 import Home from '../pages/Home.jsx';
 import App from '../App.jsx';
+import ProtectedRoute from '../auth/ProtectedRoute.jsx';
+
 
 const createAppRoutes = () => [
   {
@@ -18,15 +20,27 @@ const createAppRoutes = () => [
       },
       {
         path: 'tasks',
-        element: <TasksPage />
+        element: (
+          <ProtectedRoute>
+            <TasksPage />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'new',
-        element: <TaskForm />
+        element: (
+          <ProtectedRoute>
+            <TaskForm />
+          </ProtectedRoute>
+        )
       },
       {
         path: '/tasks/edit/:id',
-        element: <TaskForm />
+        element: (
+          <ProtectedRoute>
+            <TaskForm />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'register',
