@@ -1,10 +1,7 @@
-import { createContext, useContext, useState } from "react";
-import { registerUserRequest, loginUserRequest, logoutRequest } from "../api/user.api.js";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useState, useEffect  } from "react";
+import { registerUserRequest, loginUserRequest, logoutRequest, verifyUserRequest } from "../api/user.api.js";
 
 export const UserContext = createContext()
-
-
 
 export const useUser = () => {
   const context = useContext(UserContext)
@@ -18,6 +15,19 @@ export const useUser = () => {
 export const UserContextProvider = ({ children }) => {
 
   const [user, setUser] = useState({});
+
+    // Verificar el usuario al iniciar la app
+    useEffect(() => {
+      async function checkUser() {
+        try {
+          const res = await verifyUserRequest();
+          setUser(res.data); 
+        } catch (error) {
+          setUser({}); 
+        }
+      }
+      checkUser();
+    }, []);
 
   const registerUser = async (user) => {
     try {

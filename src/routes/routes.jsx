@@ -25,7 +25,7 @@ const createAppRoutes = () => [
         element: <TaskForm />
       },
       {
-        path: 'edit/:id',
+        path: '/tasks/edit/:id',
         element: <TaskForm />
       },
       {
