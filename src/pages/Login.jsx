@@ -1,11 +1,9 @@
 import { Formik, Field, Form } from 'formik';
-import { useTasks } from "../context/TaskContext.jsx";
 import { useUser } from "../context/UserContext.jsx";
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function TaskForm() {
+  const navigate = useNavigate()
   const { loginUser } = useUser()
 
   return (
@@ -17,8 +15,12 @@ export default function TaskForm() {
           password: '',
         }}
         onSubmit={async (values) => {
-          console.log(values)
-          await loginUser(values)
+          const response = await loginUser(values);
+          if (response.id) {
+            navigate('/');
+          } else {
+            alert(response.message)
+          }
         }}
       >
         <Form>

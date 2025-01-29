@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext()
 
+
+
 export const useUser = () => {
   const context = useContext(UserContext)
   if (!context) {
@@ -27,9 +29,11 @@ export const UserContextProvider = ({ children }) => {
 
   const loginUser = async (user) => {
     try {
-      await loginUserRequest(user)
+      const result = await loginUserRequest(user);
+      setUser(result.data);
+      return result.data;
     } catch (error) {
-      console.log(error)
+      return error.response?.data || { error: "Error Login" }; 
     }
   };
 
@@ -41,7 +45,7 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
-  return <UserContext.Provider value={{ registerUser, loginUser, logoutUser }}>
+  return <UserContext.Provider value={{ user, registerUser, loginUser, logoutUser }}>
     {children} {/* Este children es todos los componentes porque no especificamos */}
   </UserContext.Provider>
 }
