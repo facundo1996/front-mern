@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik';
 import { useTasks } from "../context/TaskContext.jsx";
+import { useUser } from "../context/UserContext.jsx";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { TextField, Button, Container, Typography } from '@mui/material';
@@ -7,6 +8,7 @@ import { TextField, Button, Container, Typography } from '@mui/material';
 export default function TaskForm() {
   const navigate = useNavigate();
   const { createTask, getTask, updateTask } = useTasks();
+  const { user } = useUser();
   const [task, setTask] = useState({
     title: "",
     description: ""
@@ -40,7 +42,7 @@ export default function TaskForm() {
             await updateTask(params.id, values);
             navigate('/');
           } else {
-            await createTask(values);
+            await createTask(values, user.username);
           }
           actions.resetForm();
         }}

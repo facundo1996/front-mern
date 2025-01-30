@@ -4,7 +4,7 @@ export const getTasksRequest = async () => await axios.get('http://localhost:400
 
 export const getTaskRequest = async (id) => await axios.get(`http://localhost:4000/api/task/${id}`, { withCredentials: true}) 
 
-export const createTaskRequest = async (task) => await axios.post('http://localhost:4000/api/tasks', task, { withCredentials: true})
+export const createTaskRequest = async (task, username) => await axios.post('http://localhost:4000/api/tasks', {task, username}, { withCredentials: true})
 
 export const updateTaskRequest = async (id, task) => await axios.put(`http://localhost:4000/api/task/${id}`, task, { withCredentials: true})
 
