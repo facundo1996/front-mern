@@ -10,7 +10,7 @@ export default function TaskForm() {
   const [errorMessage, setErrorMessage] = useState('');
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
       <Box sx={{ width: 400, padding: 3, borderRadius: 2, boxShadow: 3, backgroundColor: '#fff' }}>
         <Typography variant="h4" align="center" sx={{ marginBottom: 2 }}>
           Login

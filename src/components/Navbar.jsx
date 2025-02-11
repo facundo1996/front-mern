@@ -24,6 +24,9 @@ export default function Navbar() {
 
   return (
     <AppBar position="relative" sx={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+      <Typography sx={{ color: '#fff' }} to="/" variant="h6" component={Link}>
+        Home
+      </Typography>
       {!user || Object.keys(user).length === 0 ? (
         <>
           <Typography sx={{ color: '#fff' }} to="/login" variant="h6" component={Link}>
@@ -35,9 +38,6 @@ export default function Navbar() {
         </>
       ) : (
         <>
-          <Typography sx={{ color: '#fff' }} to="/" variant="h6" component={Link}>
-            Home
-          </Typography>
           <Typography sx={{ color: '#fff' }} to="/tasks" variant="h6" component={Link}>
             Tasks
           </Typography>

@@ -1,0 +1,10 @@
+body {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+#root {
+  height: calc(100vh - 32px);
+  main {
+    height: 100%;
+  }
+}
