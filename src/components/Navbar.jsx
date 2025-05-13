@@ -7,6 +7,7 @@ export default function Navbar() {
   const { logoutUser, user } = useUser();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
+  console.log(user)
 
   const handleLogout = () => {
     logoutUser();
@@ -38,6 +39,9 @@ export default function Navbar() {
         </>
       ) : (
         <>
+          <Typography sx={{ color: '#fff' }} to="/admin" variant="h6" component={Link}>
+            Admin
+          </Typography>
           <Typography sx={{ color: '#fff' }} to="/tasks" variant="h6" component={Link}>
             Tasks
           </Typography>

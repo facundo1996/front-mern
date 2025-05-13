@@ -6,7 +6,7 @@ import Login from '../pages/Login.jsx';
 import Home from '../pages/Home.jsx';
 import App from '../App.jsx';
 import ProtectedRoute from '../auth/ProtectedRoute.jsx';
-
+import Admin from '../pages/Admin.jsx'
 
 const createAppRoutes = () => [
   {
@@ -17,6 +17,14 @@ const createAppRoutes = () => [
       {
         path: '',
         element: <Home />
+      },
+      {
+        path: 'admin',
+        element: (
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'tasks',
